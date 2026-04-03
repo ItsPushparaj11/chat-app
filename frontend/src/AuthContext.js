@@ -22,14 +22,14 @@ export const AuthProvider = ({ children }) => {
     const BASE_URL = "https://chat-app-7-nzuw.onrender.com";
 
 const login = async (username, password) => {
-    const res = await axios.post(`${BASE_URL}/api/user/login`, { username, password });
+    const res = await axios.post(`${BASE_URL}/api/users/login`, { username, password });
     localStorage.setItem('token', res.data.token);
     axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`;
     setUser(res.data.user);
 };
 
 const register = async (userData) => {
-    const res = await axios.post(`${BASE_URL}/api/user/register`, userData);
+    const res = await axios.post(`${BASE_URL}/api/users/register`, userData);
     return res.data;
 };
 

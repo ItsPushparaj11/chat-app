@@ -42,7 +42,7 @@ const Chat = () => {
 
     const fetchConversations = async () => {
         try {
-            const res = await axios.get('http://localhost:5001/api/conversations');
+            const res = await axios.get('https://chat-app-7-nzuw.onrender.com/api/conversations');
             setConversations(res.data);
         } catch (error) {
             console.error(error);
@@ -51,7 +51,7 @@ const Chat = () => {
 
     const fetchMessages = async (conversationId) => {
         try {
-            const res = await axios.get(`http://localhost:5001/api/messages/${conversationId}`);
+            const res = await axios.get(`https://chat-app-7-nzuw.onrender.com/api/messages/${conversationId}`);
             setMessages(res.data);
         } catch (error) {
             console.error(error);
@@ -61,7 +61,7 @@ const Chat = () => {
     const sendMessage = async () => {
         if (!newMessage.trim()) return;
         try {
-            const res = await axios.post('http://localhost:5001/api/messages', {
+            const res = await axios.post('https://chat-app-7-nzuw.onrender.com/api/messages', {
                 conversationId: selectedConversation._id,
                 message: newMessage
             });
