@@ -5,7 +5,7 @@ import axios from 'axios';
 import io from 'socket.io-client';
 import './Chat.css';
 
-const socket = io('http://localhost:5001');
+const socket = io('https://chat-app-7-nzuw.onrender.com');
 
 const Chat = () => {
     const { user, logout } = useAuth();

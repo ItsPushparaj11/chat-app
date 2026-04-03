@@ -27,7 +27,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     const register = async (userData) => {
-        const res = await axios.post('http://localhost:5001/api/users/register', userData);
+        const res = await axios.post('https://chat-app-7-nzuw.onrender.com', userData);
         return res.data;
     };
 
