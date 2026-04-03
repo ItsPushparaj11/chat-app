@@ -55,3 +55,6 @@ server.listen(PORT, () => {
     connectDB();
     console.log(`Server listen at port ${PORT}`);
 });
+app.get("/", (req, res) => {
+  res.send("Chat App Backend is Running 🚀");
+});
