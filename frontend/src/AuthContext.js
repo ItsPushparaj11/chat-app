@@ -29,7 +29,7 @@ const login = async (username, password) => {
 };
 
 const register = async (userData) => {
-    const res = await axios.post(`${BASE_URL}/api/users/register`, userData);
+    const res = await axios.post(`${BASE_URL}/api/user/register`, userData);
     return res.data;
 };
 
