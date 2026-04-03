@@ -35,6 +35,46 @@ A full-stack MERN chat application with real-time messaging.
 2. npm install
 3. npm start
 
+## Project Structure
+
+```
+Chat app/
+├── Backend/
+│   ├── config/
+│   │   └── database.js           # MongoDB connection
+│   ├── controlllers/            # Business logic for API operations
+│   │   ├── userController.js
+│   │   ├── conversationController.js
+│   │   └── messageController.js
+│   ├── middleware/
+│   │   └── isAuthenticated.js    # JWT auth middleware
+│   ├── models/                  # Mongoose schemas
+│   │   ├── userModel.js
+│   │   ├── conversationModels.js
+│   │   └── messageModel.js
+│   ├── routes/                  # Express routes
+│   │   ├── userRoutes.js
+│   │   ├── conversationRoutes.js
+│   │   └── messageRoutes.js
+│   ├── .env                     # Environment variables (ignored in git)
+│   ├── index.js                 # Express + socket.io server
+│   └── package.json
+├── frontend/
+│   ├── public/
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── Login.js
+│   │   │   ├── Signup.js
+│   │   │   ├── Chat.js
+│   │   │   └── Chat.css
+│   │   ├── AuthContext.js       # Auth state + API helper
+   │   │   └── App.js
+│   │   └── index.js
+│   ├── package.json
+│   └── README.md
+└── README.md
+```
+
 ## API Endpoints
 
 - POST /api/users/register - Register user
@@ -50,6 +90,6 @@ A full-stack MERN chat application with real-time messaging.
 
 1. Register a new account or login
 2. Start chatting in real-time
- 
- ## Author 
- Pushpa Raj Dhamala and Harsh Chavan
+
+## Author
+Pushpa Raj Dhamala and Harsh Chavan
