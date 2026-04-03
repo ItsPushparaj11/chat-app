@@ -14,14 +14,9 @@ dotenv.config();
 const app = express();
 const server = http.createServer(app);
 
-// ✅ CORS FIX (IMPORTANT)
-const allowedOrigins = [
-    "http://localhost:3000",
-    "https://chat-app-9-zlub.onrender.com" 
-];
-
+// ✅ SIMPLE & FINAL CORS FIX (works everywhere)
 app.use(cors({
-    origin: allowedOrigins,
+    origin: true,
     credentials: true
 }));
 
@@ -29,8 +24,8 @@ app.use(cors({
 app.use(express.json());
 app.use(cookieParser());
 
-// ✅ ROUTES FIX (IMPORTANT)
-app.use("/api/user", userRoutes); // FIXED
+// ✅ ROUTES (FIXED)
+app.use("/api/user", userRoutes);
 app.use("/api/conversations", conversationRoutes);
 app.use("/api/messages", messageRoutes);
 
@@ -39,10 +34,10 @@ app.get("/", (req, res) => {
     res.send("Chat App Backend is Running 🚀");
 });
 
-// ✅ SOCKET.IO FIX (use same origins)
+// ✅ SOCKET.IO (FIXED CORS)
 const io = new Server(server, {
     cors: {
-        origin: allowedOrigins,
+        origin: "*",
         methods: ["GET", "POST"]
     }
 });
