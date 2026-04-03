@@ -19,17 +19,19 @@ export const AuthProvider = ({ children }) => {
         setLoading(false);
     }, []);
 
-    const login = async (username, password) => {
-        const res = await axios.post('http://localhost:5001/api/users/login', { username, password });
-        localStorage.setItem('token', res.data.token);
-        axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`;
-        setUser(res.data.user);
-    };
+    const BASE_URL = "https://chat-app-7-nzuw.onrender.com";
 
-    const register = async (userData) => {
-        const res = await axios.post('https://chat-app-7-nzuw.onrender.com', userData);
-        return res.data;
-    };
+const login = async (username, password) => {
+    const res = await axios.post(`${BASE_URL}/api/user/login`, { username, password });
+    localStorage.setItem('token', res.data.token);
+    axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`;
+    setUser(res.data.user);
+};
+
+const register = async (userData) => {
+    const res = await axios.post(`${BASE_URL}/api/user/register`, userData);
+    return res.data;
+};
 
     const logout = () => {
         localStorage.removeItem('token');
