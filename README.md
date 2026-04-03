@@ -50,4 +50,4 @@ A full-stack MERN chat application with real-time messaging.
 
 1. Register a new account or login
 2. Start chatting in real-time
-Made By "Pushpa Raj Dhamala and Harsh Chavan"
+ Author : Pushpa Raj Dhamala and Harsh Chavan
