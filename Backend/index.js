@@ -9,52 +9,63 @@ import cors from "cors";
 import { Server } from "socket.io";
 import http from "http";
 
-dotenv.config({});
+dotenv.config();
+
 const app = express();
 const server = http.createServer(app);
+
+// ✅ CORS FIX (IMPORTANT)
+const allowedOrigins = [
+    "http://localhost:3000",
+    "https://chat-app-9-zlub.onrender.com" 
+];
+
+app.use(cors({
+    origin: allowedOrigins,
+    credentials: true
+}));
+
+// Middleware
+app.use(express.json());
+app.use(cookieParser());
+
+// ✅ ROUTES FIX (IMPORTANT)
+app.use("/api/user", userRoutes); // FIXED
+app.use("/api/conversations", conversationRoutes);
+app.use("/api/messages", messageRoutes);
+
+// ✅ ROOT ROUTE
+app.get("/", (req, res) => {
+    res.send("Chat App Backend is Running 🚀");
+});
+
+// ✅ SOCKET.IO FIX (use same origins)
 const io = new Server(server, {
     cors: {
-        origin: ["http://localhost:3000", "https://your-frontend-domain.vercel.app"], // Add your Vercel domain
+        origin: allowedOrigins,
         methods: ["GET", "POST"]
     }
 });
 
-const PORT = process.env.PORT || 5000;
+io.on("connection", (socket) => {
+    console.log("User connected:", socket.id);
 
-//middleware
-app.use(express.json());
-app.use(cookieParser());
-app.use(cors({
-    origin: ["http://localhost:3000", "https://your-frontend-domain.vercel.app"], // Add your Vercel domain
-    credentials: true
-}));
-
-//routes
-app.use("/api/users", userRoutes);
-app.use("/api/conversations", conversationRoutes);
-app.use("/api/messages", messageRoutes);
-
-// Socket.io
-io.on('connection', (socket) => {
-    console.log('User connected:', socket.id);
-
-    socket.on('joinConversation', (conversationId) => {
+    socket.on("joinConversation", (conversationId) => {
         socket.join(conversationId);
     });
 
-    socket.on('sendMessage', (data) => {
-        io.to(data.conversationId).emit('receiveMessage', data.message);
+    socket.on("sendMessage", (data) => {
+        io.to(data.conversationId).emit("receiveMessage", data.message);
     });
 
-    socket.on('disconnect', () => {
-        console.log('User disconnected:', socket.id);
+    socket.on("disconnect", () => {
+        console.log("User disconnected:", socket.id);
     });
 });
+
+const PORT = process.env.PORT || 5000;
 
 server.listen(PORT, () => {
     connectDB();
     console.log(`Server listen at port ${PORT}`);
-});
-app.get("/", (req, res) => {
-  res.send("Chat App Backend is Running 🚀");
 });
